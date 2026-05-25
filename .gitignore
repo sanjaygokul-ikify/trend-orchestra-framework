@@ -1,0 +1,8 @@
+# Ignore files
+*.pyc
+*.tmp
+*.log
+
+# Ignore directories
+__pycache__/
+venv/
