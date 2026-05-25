@@ -1,0 +1,8 @@
+orchestrator:
+  db_host: db
+  db_port: 5432
+  db_username: orchestrator
+  db_password: password
+agent:
+  name: my_agent
+  type: worker
