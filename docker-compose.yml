@@ -1,0 +1,19 @@
+version: '3'
+services:
+  orchestrator:
+    build: .
+    ports:
+      - '5000:5000'
+    depends_on:
+      - db
+    environment:
+      - ORCHESTRATOR_DB_HOST=db
+      - ORCHESTRATOR_DB_PORT=5432
+      - ORCHESTRATOR_DB_USERNAME=orchestrator
+      - ORCHESTRATOR_DB_PASSWORD=password
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=orchestra
+      - POSTGRES_USER=orchestrator
+      - POSTGRES_PASSWORD=password
