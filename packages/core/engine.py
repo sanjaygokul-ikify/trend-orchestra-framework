@@ -39,7 +39,12 @@ class Engine:
         for agent in self.agents:
             agent.start()
         for task in self.tasks:
-            self.execute_task(task)
+            try:
+                self.execute_task(task)
+            except TaskException as e:
+                self.logger.error(f"Task {task.name} execution failed: {e}")
+            else:
+                self.logger.info(f"Task {task.name} executed successfully")
         aggregated_results = self.aggregate_results()
         self.logger.info(f"Aggregated results: {aggregated_results}")
 
