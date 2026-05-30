@@ -27,3 +27,18 @@ class Executor:
     def stop(self):
         self.engine.stop()
         self.logger.info("Executor stopped")
+
+    def execute_task_with_timeout(self, task: Task, timeout: int):
+        import signal
+        import time
+        def timeout_handler(signum, frame):
+            raise TimeoutError()
+        signal.signal(signal.SIGALRM, timeout_handler)
+        signal.alarm(timeout)
+        try:
+            result = self.engine.execute_task(task)
+            signal.alarm(0)
+            return result
+        except TimeoutError:
+            self.logger.error(f"Task {task.name} timed out")
+            raise TaskException(f"Task {task.name} timed out")
