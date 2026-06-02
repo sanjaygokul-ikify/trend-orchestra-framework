@@ -42,3 +42,6 @@ class Executor:
         except TimeoutError:
             self.logger.error(f"Task {task.name} timed out")
             raise TaskException(f"Task {task.name} timed out")
+        except Exception as e:
+            self.logger.error(f"Task {task.name} execution failed: {e}")
+            raise TaskException(f"Task {task.name} execution failed: {e}")
