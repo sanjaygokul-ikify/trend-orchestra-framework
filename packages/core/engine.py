@@ -18,16 +18,17 @@ class Engine:
         self.tasks.append(task)
         self.logger.info(f"Task {task.name} dispatched")
 
-    def execute_task(self, task: Task):
+    def execute_task(self, task: Task) -> Result:
         try:
             result = task.execute()
             self.results[task.name] = result
             self.logger.info(f"Task {task.name} executed successfully")
+            return result
         except Exception as e:
             self.logger.error(f"Task {task.name} execution failed: {e}")
             raise TaskException(f"Task {task.name} execution failed: {e}")
 
-    def aggregate_results(self):
+    def aggregate_results(self) -> Dict[str, List[Result]]:
         aggregated_results: Dict[str, List[Result]] = {}
         for result in self.results.values():
             if result.task_name not in aggregated_results:
@@ -53,5 +54,5 @@ class Engine:
             agent.stop()
         self.logger.info("Engine stopped")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Engine(agents={self.agents}, tasks={self.tasks}, results={self.results})"
