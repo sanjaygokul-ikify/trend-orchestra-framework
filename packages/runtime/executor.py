@@ -10,7 +10,7 @@ class Executor:
         self.engine = engine
         self.logger = logger
 
-    def execute(self, task: Task):
+    def execute(self, task: Task) -> Result:
         try:
             result = self.engine.execute_task(task)
             self.logger.info(f"Task {task.name} executed successfully")
@@ -28,7 +28,7 @@ class Executor:
         self.engine.stop()
         self.logger.info("Executor stopped")
 
-    def execute_task_with_timeout(self, task: Task, timeout: int):
+    def execute_task_with_timeout(self, task: Task, timeout: int) -> Result:
         import signal
         import time
         def timeout_handler(signum, frame):
