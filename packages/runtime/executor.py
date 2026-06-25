@@ -45,3 +45,6 @@ class Executor:
         except Exception as e:
             self.logger.error(f"Task {task.name} execution failed: {e}")
             raise TaskException(f"Task {task.name} execution failed: {e}")
+
+    def register_agent(self, agent: Agent) -> None:
+        self.engine.register_agent(agent)
