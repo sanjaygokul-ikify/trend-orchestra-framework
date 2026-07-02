@@ -48,3 +48,4 @@ class Executor:
 
     def register_agent(self, agent: Agent) -> None:
         self.engine.register_agent(agent)
+        self.logger.info(f"Agent {agent.name} registered")
